@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { GiocoComponent } from './components/gioco/gioco.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StatsComponent } from './components/stats/stats.component';
+import { NavComponent } from './shared/nav/nav.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { StatsComponent } from './components/stats/stats.component';
     LoginComponent,
     GiocoComponent,
     NotFoundComponent,
-    StatsComponent
+    StatsComponent,
+    NavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
