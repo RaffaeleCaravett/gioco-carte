@@ -8,10 +8,6 @@ import { StatsComponent } from './components/stats/stats.component';
 
 const routes: Routes = [
   {
-path:'',
-component:HomeComponent
-  },
-  {
 path:'login',
 component:LoginComponent
   },
@@ -23,6 +19,10 @@ component:GiocoComponent
 path:'stats',
 component:StatsComponent
   },
+  {
+    path:'home',
+  component:HomeComponent
+      },
   {
     path:'**',
     component:NotFoundComponent
