@@ -36,7 +36,7 @@ login(){
 if(this.loginForm.valid){
   this.authService.login({email:this.loginForm.controls['email'].value,password:this.loginForm.controls['password'].value}).subscribe((data:any)=>{
     if(data){
-      this.authService.setToken(data.accessToken)
+      this.authService.setToken(data.tokens.accessToken)
       this.authGuard.authenticateUser(true)
       this.router.navigate(['/gioco'])
     }

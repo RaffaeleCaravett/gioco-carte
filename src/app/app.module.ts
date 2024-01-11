@@ -11,10 +11,11 @@ import { StatsComponent } from './component/stats/stats.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS,  HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './core/auth.guard';
 import { TokenInterceptor } from './core/token.interceptor';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
@@ -46,15 +48,9 @@ import { ToastrModule } from 'ngx-toastr';
     multi: true,
   },
   provideAnimations(),
-  provideToastr(),],
+  provideToastr(),
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function provideAnimations(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
-
-function provideToastr(): import("@angular/core").Provider | import("@angular/core").EnvironmentProviders {
-  throw new Error('Function not implemented.');
-}
 
