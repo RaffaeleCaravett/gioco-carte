@@ -1,0 +1,13 @@
+<div class="container text-center">
+  <div class="row p-5">
+    <div class="p-5" *ngIf="loggedIn==false">
+      <div class="p-3 border bg-light rounded shadow">
+         <h1 class="py-5">You must be logged in to play.</h1>
+    <button class="btn btn-primary my-3" [routerLink]="'/login'">Login</button>
+    <p class="py-3 fs-4">Let's go, you can't be serious all the time.</p>
+    <p class="py-3 fs-4">Just have a break and relax a bit.</p>
+    <p class="py-5 fs-4">😁😁😁</p>
+      </div>
+  </div>
+  </div>
+</div>

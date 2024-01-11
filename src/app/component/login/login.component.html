@@ -1,0 +1,39 @@
+<div class="container text-center py-5">
+  <div class="row p-5">
+<div class="col-md-12 p-3" *ngIf="log">
+  <h2 class="py-5">If you have already an account</h2>
+  <div class="border rounded shadow bg-success py-5">
+<h2 class="py-4">Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+<label for=""></label>
+<input type="text" formContolName="email" class="form-control w-50 m-auto">
+<label for=""></label>
+<input type="password" formContolName="password" class="form-control w-50 m-auto">
+<p class="text-danger" *ngIf="error!=''">{{error}}</p>
+<button class="btn btn-warning my-3" type="submit">Login</button>
+</form>
+  </div>
+  <button class="btn btn-secondary m-1" (click)="log=false">Signup</button>
+</div>
+
+<div class="col-md-12 p-3" *ngIf="!log">
+  <h2 class="py-3">If you don't</h2>
+  <div class="border rounded shadow bg-warning py-3">
+<h2 class="py-3">Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="login()">
+<label class="py-2">Email</label>
+<input type="text" formContolName="email" class="form-control w-50 m-auto">
+<label class="py-2">Username</label>
+<input type="text" formContolName="username" class="form-control w-50 m-auto">
+<label class="py-2">Password</label>
+<input type="password" formContolName="password" class="form-control w-50 m-auto">
+<label class="py-2">Conferma password</label>
+<input type="password" formContolName="ripetiPassword" class="form-control w-50 m-auto">
+<p class="text-danger" *ngIf="error!=''">{{error}}</p>
+<button class="btn btn-success my-3" type="submit">Register</button>
+</form>
+  </div>
+  <button class="btn btn-secondary m-1" (click)="log=true">Login</button>
+</div>
+  </div>
+</div>
