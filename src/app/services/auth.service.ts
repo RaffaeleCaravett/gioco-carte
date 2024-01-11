@@ -9,7 +9,7 @@ import { environment } from 'src/environment/environment';
 export class AuthService {
 private log='/login'
 private sign='/register'
-private token:String=''
+public token:String|null=null
 constructor(private router:Router,private http:HttpClient) { }
 
 

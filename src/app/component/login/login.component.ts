@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthGuard } from 'src/app/core/auth.guard';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,11 +13,11 @@ export class LoginComponent implements OnInit{
   loginForm!:FormGroup
   registerForm!:FormGroup
   error:string=''
-constructor(private authService:AuthService){}
+constructor(private authService:AuthService,private authGuard:AuthGuard){}
 
   ngOnInit(): void {
   this.loginForm=new FormGroup({
-    email:new FormControl('',Validators.required),
+    email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     password:new FormControl('',Validators.required)
   })
   this.registerForm=new FormGroup({
@@ -34,10 +35,14 @@ if(this.loginForm.valid){
   this.authService.login({email:this.loginForm.controls['email'].value,password:this.loginForm.controls['password'].value}).subscribe((data:any)=>{
     if(data){
       this.authService.setToken(data.accessToken)
+      this.authGuard.authenticateUser(true)
     }
   },err=>{
     this.error=err.error.message
+    this.authGuard.authenticateUser()
   });
+}else{
+  this.error="Compila correttamente il form"
 }
 
 }
@@ -50,6 +55,8 @@ signup(){
       this.error=err.error.message
     this.log=false;
     });
+  }else{
+    this.error="Compila correttamente il form"
   }
 }
 }
