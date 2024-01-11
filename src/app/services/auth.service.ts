@@ -9,6 +9,7 @@ import { environment } from 'src/environment/environment';
 export class AuthService {
 private log='/login'
 private sign='/register'
+private token:String=''
 constructor(private router:Router,private http:HttpClient) { }
 
 
@@ -22,5 +23,8 @@ return this.http.post(environment.API_URL+this.log,body)
 
 signup(body:any){
   return this.http.post(environment.API_URL+this.sign,body)
+  }
+  setToken(token:string){
+    this.token=token
   }
 }
