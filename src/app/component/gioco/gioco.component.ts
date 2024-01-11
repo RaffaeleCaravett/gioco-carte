@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthGuard } from 'src/app/core/auth.guard';
 import { CardService } from 'src/app/services/card.service';
+import { ScoreComponent } from 'src/app/shared/score/score.component';
 
 @Component({
   selector: 'app-gioco',
@@ -19,8 +21,9 @@ seconds:number=59
 gameStarted=false
 previousItem:any
 previousIndex:any
+clockStarted:boolean=false
 
-constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService){}
+constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService,private dialog:MatDialog){}
 
 ngOnInit(): void {
   this.loggedIn=this.authGuard.isAuthenticated
@@ -51,7 +54,8 @@ shuffle(array:any) {
   return array;
 }
 
-flip(item:any,index:number){
+flip(item?:any,index?:number){
+  if(item&&index){
   let div = document.querySelector(`.flip-card${index}`) as HTMLElement
 
   if(this.previousItem&&this.previousItem.value==item.value&&this.previousItem.cartType==item.cartType&&this.previousItem.color==item.color&&this.previousItem.id!=item.id){
@@ -63,25 +67,41 @@ flip(item:any,index:number){
 
 this.previousItem=item
 this.previousIndex=index
+  }
 let interval:any
 if(!this.gameStarted){
   interval=setInterval(()=>{
+    this.gameStarted=true
     this.seconds-=1
     if(this.seconds==0){
       if(this.minutes>0){
         this.minutes-=1
       }
-      this.seconds=59
-    }
-    if(this.seconds==0&&this.minutes==0){
+      if(this.seconds==0&&this.minutes==0){
+
       this.gameStarted=false
       this.clear(interval)
+      const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
+dialogRef.afterClosed().subscribe((data:any)=>{
+  this.clockStarted=false
+   this.minutes=1
+   this.seconds=59
+})
+    }else{
+       this.seconds=59
     }
+    }
+
     },1000)
 }
-  this.gameStarted=true
 if(this.punteggio==15){
   this.clear(interval)
+const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
+dialogRef.afterClosed().subscribe((data:any)=>{
+  this.clockStarted=false
+   this.minutes=1
+   this.seconds=59
+})
 }
 }
 clear(interval:any){

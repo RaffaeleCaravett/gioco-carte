@@ -16,7 +16,8 @@ import { AuthGuard } from './core/auth.guard';
 import { TokenInterceptor } from './core/token.interceptor';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ScoreComponent } from './shared/score/score.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
     NotFoundComponent,
     StatsComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    ScoreComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    MatDialogModule
   ],
   providers: [
     AuthGuard,
