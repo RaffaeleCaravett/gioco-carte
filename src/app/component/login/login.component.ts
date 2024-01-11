@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthGuard } from 'src/app/core/auth.guard';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit{
   loginForm!:FormGroup
   registerForm!:FormGroup
   error:string=''
-constructor(private authService:AuthService,private authGuard:AuthGuard){}
+constructor(private authService:AuthService,private authGuard:AuthGuard,private router:Router,private toastr:ToastrService){}
 
   ngOnInit(): void {
   this.loginForm=new FormGroup({
@@ -36,12 +38,15 @@ if(this.loginForm.valid){
     if(data){
       this.authService.setToken(data.accessToken)
       this.authGuard.authenticateUser(true)
+      this.router.navigate(['/gioco'])
     }
   },err=>{
     this.error=err.error.message
+    this.toastr.success(err.error.message)
     this.authGuard.authenticateUser()
   });
 }else{
+  this.toastr.success('Registrazione negata')
   this.error="Compila correttamente il form"
 }
 
@@ -51,11 +56,14 @@ signup(){
     this.authService.signup({email:this.registerForm.controls['email'].value,password:this.registerForm.controls['password'].value,nome:this.registerForm.controls['nome'].value,
     username:this.registerForm.controls['username'].value}).subscribe((data:any)=>{
      this.log=true
+     this.toastr.success('Registrazione effettuata')
     },err=>{
       this.error=err.error.message
+      this.toastr.success(err.error.message)
     this.log=false;
     });
   }else{
+    this.toastr.success('Registrazione negata')
     this.error="Compila correttamente il form"
   }
 }

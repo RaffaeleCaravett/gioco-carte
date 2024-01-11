@@ -7,8 +7,8 @@ import { environment } from 'src/environment/environment';
   providedIn: 'root'
 })
 export class AuthService {
-private log='/login'
-private sign='/register'
+private log='/auth/login'
+private sign='/auth/register'
 public token:String|null=null
 constructor(private router:Router,private http:HttpClient) { }
 

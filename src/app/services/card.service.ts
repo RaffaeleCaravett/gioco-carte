@@ -10,7 +10,7 @@ export class CardService {
 
       constructor(private http:HttpClient) { }
 
-    getClassifica(){
+    getCards(){
     return this.http.get(environment.API_URL+this.card)
     }
 
