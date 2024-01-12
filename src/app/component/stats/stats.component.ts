@@ -14,8 +14,9 @@ classifica:any[]=[]
   ngOnInit(): void {
 this.statsService.getClassifica().subscribe((data:any)=>{
   if(data){
-    for (let u of data.user){
-      this.classifica.push(u.partite)
+    console.log(data)
+    for (let u of data){
+      this.classifica.push(u)
     }
   }
 })  }

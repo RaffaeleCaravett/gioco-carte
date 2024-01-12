@@ -28,6 +28,7 @@ constructor(private authGuard:AuthGuard,private cardService:CardService,private 
 
 ngOnInit(): void {
   this.user=JSON.parse(localStorage.getItem('user')!)
+  console.log(this.user)
   this.loggedIn=this.authGuard.isAuthenticated
   if(this.loggedIn){
 this.cardService.getCards().subscribe((data:any)=>{
@@ -79,14 +80,27 @@ if(!this.gameStarted){
 
     }else{
       if(this.seconds==0&&this.minutes==0){
+
         this.gameStarted=false
         this.clear(interval)
         const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
   dialogRef.afterClosed().subscribe((data:any)=>{
+    if(data ==true){
+      this.partitaService.createPartita({
+        punteggio:this.punteggio,
+        minuti:this.minutes,
+        secondi:this.seconds,
+        user_id:this.user.id
+      }).subscribe((data:any)=>{
+        this.toastr.success("Partita salvata correttamente")
+      },err=>{
+        this.toastr.error(err.error.message||"Qualcosa è andato storto nel salvataggio della partita")
+      });   }
     this.clockStarted=false
      this.minutes=1
      this.seconds=59
   })
+
   }
   if(this.minutes>0){
           this.minutes-=1
@@ -98,26 +112,27 @@ if(!this.gameStarted){
 }
 if(this.punteggio==15){
   this.clear(interval)
-const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
-this.seconds=0
-this.minutes=0
+  this.gameStarted=false
+  const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
 dialogRef.afterClosed().subscribe((data:any)=>{
 
 
    if(data ==true){
 this.partitaService.createPartita({
   punteggio:this.punteggio,
-  user:this.user.id
+  minuti:this.minutes,
+  secondi:this.seconds,
+  user_id:this.user.id
 }).subscribe((data:any)=>{
   this.toastr.success("Partita salvata correttamente")
 },err=>{
   this.toastr.error(err.error.message||"Qualcosa è andato storto nel salvataggio della partita")
-});
-   }
+});   }
    this.clockStarted=false
    this.minutes=1
    this.seconds=59
 })
+
 }
 }
 clear(interval:any){

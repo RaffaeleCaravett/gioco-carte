@@ -11,7 +11,7 @@ import { AuthGuard } from './core/auth.guard';
 })
 export class AppComponent implements OnInit{
   title = 'giocoCarte';
-
+  public userIsLoggedIn:boolean=false
   constructor(private router:Router,private authService:AuthService,private toastr:ToastrService,private authGuard :AuthGuard){}
 
   ngOnInit(): void {
@@ -25,11 +25,12 @@ localStorage.setItem('user',JSON.stringify(data))
 this.authService.setToken(accessToken)
 this.authService.token=accessToken
 this.authGuard.authenticateUser(true)
-
+this.userIsLoggedIn=true
 this.router.navigate(['/gioco'])
 
 },err=>{
   this.authGuard.authenticateUser()
+  this.userIsLoggedIn=false
 if(refreshToken){
   this.authService.verifyRefreshToken(refreshToken).subscribe((data:any)=>{
     if(data){
@@ -39,17 +40,26 @@ localStorage.setItem('user',JSON.stringify(data))
 this.authService.setToken(accessToken)
 this.authService.token=accessToken
 this.authGuard.authenticateUser(true)
+this.userIsLoggedIn=true
   this.router.navigate(['/gioco'])
     })
     }
   },err=>{
     this.authGuard.authenticateUser()
+    this.userIsLoggedIn=false
     this.toastr.error(err.error.message||"Utente non verificato")
   })
 }
 })
   }
   }
+logout(){
+  localStorage.clear()
+  this.authGuard.authenticateUser()
+  this.authService.setToken('')
+  this.router.navigate(['home'])
+  this.userIsLoggedIn=false
 
+}
 
 }

@@ -1,11 +1,11 @@
-<div class="container text-center">
+<div class="container text-center" style="min-height: 90vh;">
   <div class="row p-5">
     <div class="col-md-12 p-3">
           <h1> 🏆 Let's find out who has the best time! 🏆</h1>
     </div>
     <div class="col-md-12 p-3">
-<div class="w-50 m-auto border rounded shadow text-center" *ngFor="let p of classifica">
-<p class="p-2 fs-4">Username : {{p.user.username}}</p>
+<div class="w-50 m-auto border rounded shadow text-center my-3" *ngFor="let p of classifica, index as i">
+<p class="p-2 fs-4"> {{i+1}} - Username : {{p.user.username}}</p>
 <p class="p-2 fs-4">Punteggio : {{p.punteggio}}</p>
 <p class="p-2 fs-4">Tempo : 0{{p.minuti}} : {{p.secondi}}</p>
 </div>

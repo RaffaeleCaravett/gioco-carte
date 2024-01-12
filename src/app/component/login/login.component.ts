@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppComponent } from 'src/app/app.component';
 import { AuthGuard } from 'src/app/core/auth.guard';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit{
   registerForm!:FormGroup
   error:string=''
   user:any
-constructor(private authService:AuthService,private authGuard:AuthGuard,private router:Router,private toastr:ToastrService){}
+constructor(private authService:AuthService,private authGuard:AuthGuard,private router:Router,private toastr:ToastrService,private appComponent:AppComponent){}
 
   ngOnInit(): void {
   this.loginForm=new FormGroup({
@@ -37,19 +38,26 @@ login(){
 if(this.loginForm.valid){
   this.authService.login({email:this.loginForm.controls['email'].value,password:this.loginForm.controls['password'].value}).subscribe((data:any)=>{
     if(data){
-      this.authService.setToken(data.tokens.accessToken)
       localStorage.setItem('accessToken',data.tokens.accessToken)
       localStorage.setItem('refreshToken',data.tokens.refreshToken)
+      this.authService.setToken(data.tokens.accessToken)
+      this.authService.token=data.tokens.accessToken
+      this.authService.verifyToken(data.tokens.accessToken).subscribe((user:any)=>{
+ this.toastr.success("utente verificato con successo")
+      localStorage.setItem('user',JSON.stringify(user))
       this.authGuard.authenticateUser(true)
-      this.router.navigate(['/gioco'])
+      this.appComponent.userIsLoggedIn=true
+        this.router.navigate(['/gioco'])
+      })
     }
   },err=>{
     this.error=err.error.message
     this.toastr.error(err.error.message)
+    this.appComponent.userIsLoggedIn=false
     this.authGuard.authenticateUser()
   });
 }else{
-  this.toastr.error('Registrazione negata')
+  this.toastr.error('Login negato')
   this.error="Compila correttamente il form"
 }
 
