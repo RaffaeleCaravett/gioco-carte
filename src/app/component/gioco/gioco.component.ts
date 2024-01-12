@@ -72,24 +72,24 @@ let interval:any
 if(!this.gameStarted){
   interval=setInterval(()=>{
     this.gameStarted=true
-    this.seconds-=1
-    if(this.seconds==0){
-      if(this.minutes>0){
-        this.minutes-=1
-      }
-      if(this.seconds==0&&this.minutes==0){
+    if(this.seconds!=0){
+      this.seconds-=1
 
-      this.gameStarted=false
-      this.clear(interval)
-      const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
-dialogRef.afterClosed().subscribe((data:any)=>{
-  this.clockStarted=false
-   this.minutes=1
-   this.seconds=59
-})
     }else{
-       this.seconds=59
-    }
+      if(this.seconds==0&&this.minutes==0){
+        this.gameStarted=false
+        this.clear(interval)
+        const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
+  dialogRef.afterClosed().subscribe((data:any)=>{
+    this.clockStarted=false
+     this.minutes=1
+     this.seconds=59
+  })
+  }
+  if(this.minutes>0){
+          this.minutes-=1
+        this.seconds=59
+        }
     }
 
     },1000)

@@ -10,10 +10,10 @@
 <label for=""></label>
 <input type="password" formControlName="password" class="form-control w-50 m-auto">
 <p class="text-danger fw-bold" *ngIf="error!=''">{{error}}</p>
-<button class="btn btn-warning my-3"(click)="login()">Login</button>
+<button class="btn btn-warning my-3" type="button" (click)="login()">Login</button>
 </form>
   </div>
-  <button class="btn btn-secondary m-1" (click)="log=false">Signup</button>
+  <button class="btn btn-secondary m-1" type="button"  (click)="log=false;error=''">Signup</button>
 </div>
 
 <div class="col-md-12 p-3" *ngIf="!log">
@@ -32,10 +32,10 @@
 <label class="py-2">Conferma password</label>
 <input type="password" formControlName="ripetiPassword" class="form-control w-50 m-auto">
 <p class="text-danger fw-bold" *ngIf="error!=''">{{error}}</p>
-<button class="btn btn-success my-3" (click)="signup()">Register</button>
+<button class="btn btn-success my-3" type="button"  (click)="signup()">Register</button>
 </form>
   </div>
-  <button class="btn btn-secondary m-1" (click)="log=true">Login</button>
+  <button class="btn btn-secondary m-1" type="button"  (click)="log=true;error=''">Login</button>
 </div>
   </div>
 </div>

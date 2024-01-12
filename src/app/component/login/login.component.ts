@@ -23,11 +23,11 @@ constructor(private authService:AuthService,private authGuard:AuthGuard,private 
     password:new FormControl('',Validators.required)
   })
   this.registerForm=new FormGroup({
-    email:new FormControl('',Validators.required),
-    username:new FormControl('',Validators.required),
-    nome:new FormControl('',Validators.required),
-    password:new FormControl('',Validators.required),
-    ripetiPassword:new FormControl('',Validators.required)
+    email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    username:new FormControl('',[Validators.required,Validators.minLength(3)]),
+    nome:new FormControl('',[Validators.required,Validators.minLength(3)]),
+    password:new FormControl('',[Validators.required,Validators.minLength(3)]),
+    ripetiPassword:new FormControl('',[Validators.required,Validators.minLength(3)])
   })
   }
 
@@ -42,11 +42,11 @@ if(this.loginForm.valid){
     }
   },err=>{
     this.error=err.error.message
-    this.toastr.success(err.error.message)
+    this.toastr.error(err.error.message)
     this.authGuard.authenticateUser()
   });
 }else{
-  this.toastr.success('Registrazione negata')
+  this.toastr.error('Registrazione negata')
   this.error="Compila correttamente il form"
 }
 
@@ -59,11 +59,11 @@ signup(){
      this.toastr.success('Registrazione effettuata')
     },err=>{
       this.error=err.error.message
-      this.toastr.success(err.error.message)
+      this.toastr.error(err.error.message)
     this.log=false;
     });
   }else{
-    this.toastr.success('Registrazione negata')
+    this.toastr.error('Registrazione negata')
     this.error="Compila correttamente il form"
   }
 }
