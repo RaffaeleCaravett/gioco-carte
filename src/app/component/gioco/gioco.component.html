@@ -10,20 +10,16 @@
       </div>
   </div>
   <div class="p-5" *ngIf="loggedIn">
-    <div class="row p-3" *ngIf="!clockStarted">
+    <div class="row" >
       <div class="col-md-12" *ngIf="gameStarted"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>
-<div class="col-lg-2 col-sm-3 col-4 p-5" *ngFor="let c of cards,index as i"   (click)="flip(c,i)">
-  <div class="flip-car flip-card{{i}} p-3" >
+<div class="col-lg-2 col-sm-3 col-4 py-5" *ngFor="let c of cards,index as i"   (click)="flip(c,i+1)">
+  <div class="flip-card{{i+1}} p-3" [ngClass]="clockStarted?'flip-card':'flip-car'">
     <div class="flip-card-inner" >
       <div class="flip-card-front fs-1">
-       <button class="btn fs-3">?</button>
+       <button class="btn fs-1">?</button>
       </div>
       <div class="flip-card-back">
-        <div class="w-100 fs-1 m-auto fw-bold border rounded-circle" *ngIf="c.cartType=='CIRCLE'"  [ngClass]="c.color=='black'?'text-danger':'text-dark'"
-        [ngClass]="c.color=='black'?'border-black':'border-danger'">{{c.value}}
-     </div>
-     <div class="w-100 fs-1 m-auto fw-bold border" *ngIf="c.cartType=='CUBE'"  [ngClass]="c.color=='black'?'text-danger':'text-dark'"
-        [ngClass]="c.color=='black'?'border-black':'border-danger'">{{c.value}}
+        <div class="w-100 fs-1 m-auto fw-bold border bg-dark text-white py-3" style="min-height: 100px;">{{c.value}}
      </div>
       </div>
     </div>
@@ -31,26 +27,6 @@
 </div>
 <div class="col-md-12 text-center p-2">
   <button class="btn fs-4" (click)="clockStarted=!clockStarted;flip()">Inizia il gioco</button>
-</div>
-    </div>
-    <div class="row p-3" *ngIf="clockStarted">
-      <div class="col-md-12" *ngIf="gameStarted"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>
-<div class="col-lg-2 col-sm-3 col-4 p-5" *ngFor="let c of cards,index as i"   (click)="flip(c,i)">
-  <div class="flip-card flip-card{{i}} p-3" >
-    <div class="flip-card-inner" >
-      <div class="flip-card-front fs-1">
-       <button class="btn fs-3">?</button>
-      </div>
-      <div class="flip-card-back">
-        <div class="w-100 fs-1 m-auto fw-bold border rounded-circle" *ngIf="c.cartType=='CIRCLE'"  [ngClass]="c.color=='black'?'text-danger':'text-dark'"
-        [ngClass]="c.color=='black'?'border-black':'border-danger'">{{c.value}}
-     </div>
-     <div class="w-100 fs-1 m-auto fw-bold border" *ngIf="c.cartType=='CUBE'"  [ngClass]="c.color=='black'?'text-danger':'text-dark'"
-        [ngClass]="c.color=='black'?'border-black':'border-danger'">{{c.value}}
-     </div>
-      </div>
-    </div>
-  </div>
 </div>
     </div>
   </div>

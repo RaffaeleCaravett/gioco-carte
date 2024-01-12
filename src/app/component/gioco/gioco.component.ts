@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthGuard } from 'src/app/core/auth.guard';
 import { CardService } from 'src/app/services/card.service';
+import { PartitaService } from 'src/app/services/partita.service';
 import { ScoreComponent } from 'src/app/shared/score/score.component';
 
 @Component({
@@ -22,8 +23,8 @@ gameStarted=false
 previousItem:any
 previousIndex:any
 clockStarted:boolean=false
-
-constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService,private dialog:MatDialog){}
+user:any
+constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService,private dialog:MatDialog,private partitaService:PartitaService){}
 
 ngOnInit(): void {
   this.loggedIn=this.authGuard.isAuthenticated
@@ -58,7 +59,7 @@ flip(item?:any,index?:number){
   if(item&&index){
   let div = document.querySelector(`.flip-card${index}`) as HTMLElement
 
-  if(this.previousItem&&this.previousItem.value==item.value&&this.previousItem.cartType==item.cartType&&this.previousItem.color==item.color&&this.previousItem.id!=item.id){
+  if(this.previousItem&&this.previousItem.value==item.value&&this.previousItem.id!=item.id){
     this.punteggio+=1
     div.style.visibility='hidden'
     let prevDiv=document.querySelector(`.flip-card${this.previousIndex}`) as HTMLElement
@@ -97,8 +98,23 @@ if(!this.gameStarted){
 if(this.punteggio==15){
   this.clear(interval)
 const dialogRef= this.dialog.open(ScoreComponent,{data:[this.minutes,this.seconds,this.punteggio]})
+this.seconds=0
+this.minutes=0
 dialogRef.afterClosed().subscribe((data:any)=>{
-  this.clockStarted=false
+
+
+   if(data ==true){
+this.partitaService.createPartita({
+  punteggio:this.punteggio,
+  user:this.user.id
+}).subscribe((data:any)=>{
+  this.toastr.success("Partita salvata correttamente")
+},err=>{
+  this.toastr.error(err.error.message||"Qualcosa è andato storto nel salvataggio della partita")
+
+});
+   }
+   this.clockStarted=false
    this.minutes=1
    this.seconds=59
 })

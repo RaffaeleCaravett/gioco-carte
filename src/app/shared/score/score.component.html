@@ -1,1 +1,13 @@
-<p>score works!</p>
+<div class="p-3">
+  <h1 mat-dialog-title class="fs-1">🔥 Partita finita ! 🔥  </h1>
+    <mat-dialog-content>
+    <label for="" class="fs-3">Tempo : </label>
+    <p class="fs-4">{{data[0]}} : {{data[1]}}</p>
+    <label for="" class="fs-3">Punteggio : </label>
+    <p class="fs-4">{{data[2]}}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="true" class="btn m-1">Condividi</button>
+      <button mat-button [mat-dialog-close]="false" class="btn m-1">Ricomincia</button>
+    </mat-dialog-actions>
+</div>
