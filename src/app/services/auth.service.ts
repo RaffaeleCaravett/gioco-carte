@@ -27,4 +27,10 @@ signup(body:any){
   setToken(token:string){
     this.token=token
   }
+  verifyToken(token:string){
+    return this.http.get(environment.API_URL+'/auth/'+token)
+  }
+  verifyRefreshToken(refreshToken:string){
+    return this.http.get(environment.API_URL+'/auth/refreshToken'+refreshToken)
+  }
 }

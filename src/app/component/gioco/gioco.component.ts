@@ -27,6 +27,7 @@ user:any
 constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService,private dialog:MatDialog,private partitaService:PartitaService){}
 
 ngOnInit(): void {
+  this.user=JSON.parse(localStorage.getItem('user')!)
   this.loggedIn=this.authGuard.isAuthenticated
   if(this.loggedIn){
 this.cardService.getCards().subscribe((data:any)=>{
@@ -111,7 +112,6 @@ this.partitaService.createPartita({
   this.toastr.success("Partita salvata correttamente")
 },err=>{
   this.toastr.error(err.error.message||"Qualcosa è andato storto nel salvataggio della partita")
-
 });
    }
    this.clockStarted=false
