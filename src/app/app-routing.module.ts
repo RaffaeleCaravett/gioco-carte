@@ -8,6 +8,10 @@ import { StatsComponent } from './component/stats/stats.component';
 
 const routes: Routes = [
   {
+    path:'',
+    component:HomeComponent
+  },
+  {
 path:'login',
 component:LoginComponent
   },

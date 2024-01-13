@@ -24,11 +24,18 @@ previousItem:any
 previousIndex:any
 clockStarted:boolean=false
 user:any
+gioco:string=''
+gamePoints:number=0
+userPoints:number=0
+gameCards:any[]=[]
+userCards:any[]=[]
+winner:string=''
 constructor(private authGuard:AuthGuard,private cardService:CardService,private toastr: ToastrService,private dialog:MatDialog,private partitaService:PartitaService){}
 
 ngOnInit(): void {
+
+this.cards=[]
   this.user=JSON.parse(localStorage.getItem('user')!)
-  console.log(this.user)
   this.loggedIn=this.authGuard.isAuthenticated
   if(this.loggedIn){
 this.cardService.getCards().subscribe((data:any)=>{
@@ -137,5 +144,49 @@ this.partitaService.createPartita({
 }
 clear(interval:any){
   clearInterval(interval)
+}
+
+giveCards(game:string){
+  this.gamePoints=0
+this.userPoints=0
+this.gameCards=[]
+this.userCards=[]
+this.gameStarted=true
+this.cards=[]
+this.cardService.getCards().subscribe((data:any)=>{
+  this.shuffle(data)
+  this.cards=data
+for(let i =1;i<=6;i++){
+  if(i<=3){
+    this.gameCards.push(this.cards[i])
+  }else{
+    this.userCards.push(this.cards[i])
+  }
+}
+
+for(let c of this.gameCards){
+  this.gamePoints+=c.value
+}
+for(let c of this.userCards){
+  this.userPoints+=c.value
+}
+if(game=='highest'){
+  if(this.gamePoints>this.userPoints){
+  this.winner='Game'
+}else if (this.gamePoints<this.userPoints){
+  this.winner=this.user.username
+}else{
+  this.winner='pareggio'
+}
+}else if(game=='lowest'){
+  if(this.gamePoints<this.userPoints){
+    this.winner='Game'
+  }else if (this.gamePoints>this.userPoints){
+    this.winner=this.user.username
+  }else{
+    this.winner='pareggio'
+  }
+}
+})
 }
 }

@@ -1,4 +1,4 @@
-<div class=" text-center p-5">
+<div class=" text-center p-5" style="min-height: 90vh;">
   <div class="row p-5">
     <div class="p-5" *ngIf="!loggedIn">
       <div class="p-3 border bg-light rounded shadow">
@@ -10,8 +10,17 @@
       </div>
   </div>
   <div class="p-5" *ngIf="loggedIn">
-    <div class="row" >
-      <div class="col-md-12" *ngIf="gameStarted"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Chose Your game : </h2>
+      </div>
+      <div class="col-md-3"><button class="btn" (click)="gioco='guess'">Guess</button></div>
+      <div class="col-md-3"><button class="btn" (click)="gioco='highest'">Who has the highest</button></div>
+      <div class="col-md-3"><button class="btn" (click)="gioco='lowest'">Who has the lowest</button></div>
+      <div class="col-md-3"><button class="btn" (click)="gioco='same'">Take the same</button></div>
+    </div>
+    <div class="row" *ngIf="gioco=='guess'">
+      <div class="col-md-12" *ngIf="gameStarted && gioco=='guess'"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>
 <div class="col-lg-2 col-sm-3 col-4 py-5" *ngFor="let c of cards,index as i"   (click)="flip(c,i+1)">
   <div class="flip-card{{i+1}} p-3" [ngClass]="clockStarted?'flip-card':'flip-car'">
     <div class="flip-card-inner" >
@@ -27,6 +36,34 @@
 </div>
 <div class="col-md-12 text-center p-2">
   <button class="btn fs-4" (click)="clockStarted=!clockStarted;flip()">Inizia il gioco</button>
+</div>
+    </div>
+    <div class="row" *ngIf="gioco=='highest'||gioco=='lowest'">
+      <div class="col-md-12" *ngIf="gameStarted">
+        <h1>Who has the  <span *ngIf="gioco=='highest'">highest</span> <span *ngIf="gioco=='lowest'">lowest</span></h1>
+        <h1>Game : {{gamePoints}} | {{user.username}} : {{userPoints}}</h1>
+      <h2>Vincitore : {{winner}}</h2></div>
+      <div class="col-md-6 p-3 border rounded shadow">
+        <h2>Game:</h2>
+        <div class="row">
+        <div class="col-4 py-5" *ngFor="let c of gameCards" >
+        <div class="w-100 fs-1 m-auto fw-bold border bg-dark text-white py-3" style="min-height: 100px;">{{c.value}}
+  </div>
+        </div>
+      </div>
+</div>
+<div class="col-md-6 p-3 border rounded shadow">
+  <h2>{{user.username}}:</h2>
+  <div class="row">
+<div class="col-4 py-5" *ngFor="let c of userCards" >
+  <div class="w-100 fs-1 m-auto fw-bold border bg-dark text-white py-3" style="min-height: 100px;">{{c.value}}
+</div>
+</div>
+  </div>
+</div>
+<div class="col-md-12 text-center p-2">
+  <button class="btn fs-4" *ngIf="gioco=='highest'" (click)="giveCards('highest')">Inizia il gioco</button>
+  <button class="btn fs-4" *ngIf="gioco=='lowest'" (click)="giveCards('lowest')">Inizia il gioco</button>
 </div>
     </div>
   </div>
