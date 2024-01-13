@@ -14,10 +14,10 @@
       <div class="col-md-12">
         <h2>Chose Your game : </h2>
       </div>
-      <div class="col-md-3"><button class="btn" (click)="gioco='guess'">Guess</button></div>
-      <div class="col-md-3"><button class="btn" (click)="gioco='highest'">Who has the highest</button></div>
-      <div class="col-md-3"><button class="btn" (click)="gioco='lowest'">Who has the lowest</button></div>
-      <div class="col-md-3"><button class="btn" (click)="gioco='same'">Take the same</button></div>
+      <div class="col-md-3"><button class="btn btn-warning" (click)="gioco='guess'">Guess</button></div>
+      <div class="col-md-3"><button class="btn btn-danger" (click)="gioco='highest'">Who has the highest</button></div>
+      <div class="col-md-3"><button class="btn btn-success" (click)="gioco='lowest'">Who has the lowest</button></div>
+      <div class="col-md-3"><button class="btn btn-primary" (click)="gioco='same'">Same</button></div>
     </div>
     <div class="row" *ngIf="gioco=='guess'">
       <div class="col-md-12" *ngIf="gameStarted && gioco=='guess'"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>
@@ -38,7 +38,7 @@
   <button class="btn fs-4" (click)="clockStarted=!clockStarted;flip()">Inizia il gioco</button>
 </div>
     </div>
-    <div class="row" *ngIf="gioco=='highest'||gioco=='lowest'">
+    <div class="row" *ngIf="gioco=='highest'||gioco=='lowest'||gioco=='same'">
       <div class="col-md-12" *ngIf="gameStarted">
         <h1>Who has the  <span *ngIf="gioco=='highest'">highest</span> <span *ngIf="gioco=='lowest'">lowest</span></h1>
         <h1>Game : {{gamePoints}} | {{user.username}} : {{userPoints}}</h1>
@@ -62,8 +62,9 @@
   </div>
 </div>
 <div class="col-md-12 text-center p-2">
-  <button class="btn fs-4" *ngIf="gioco=='highest'" (click)="giveCards('highest')">Inizia il gioco</button>
-  <button class="btn fs-4" *ngIf="gioco=='lowest'" (click)="giveCards('lowest')">Inizia il gioco</button>
+  <button class="btn fs-4" *ngIf="gioco=='highest'" (click)="giveCards('highest')">Gioca</button>
+  <button class="btn fs-4" *ngIf="gioco=='lowest'" (click)="giveCards('lowest')">Gioca</button>
+  <button class="btn fs-4" *ngIf="gioco=='same'" (click)="giveCards('same')">Gioca</button>
 </div>
     </div>
   </div>

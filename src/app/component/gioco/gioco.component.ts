@@ -186,6 +186,14 @@ if(game=='highest'){
   }else{
     this.winner='pareggio'
   }
+}else{
+  if(this.gamePoints<this.userPoints){
+    this.winner='Game'
+  }else if (this.gamePoints>this.userPoints){
+    this.winner='Game'
+  }else{
+    this.winner=this.user.username
+  }
 }
 })
 }

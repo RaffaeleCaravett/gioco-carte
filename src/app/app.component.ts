@@ -12,9 +12,11 @@ import { AuthGuard } from './core/auth.guard';
 export class AppComponent implements OnInit{
   title = 'giocoCarte';
   public userIsLoggedIn:boolean=false
-  constructor(private router:Router,private authService:AuthService,private toastr:ToastrService,private authGuard :AuthGuard){}
+  constructor(private router:Router,private authService:AuthService,private toastr:ToastrService,private authGuard :AuthGuard){
+  }
 
   ngOnInit(): void {
+    this.router.navigate(['/home'])
 let accessToken=localStorage.getItem('accessToken')!
 let refreshToken=localStorage.getItem('refreshToken')!
 console.log(accessToken,refreshToken)
