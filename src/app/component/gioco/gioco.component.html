@@ -14,10 +14,10 @@
       <div class="col-md-12">
         <h2>Chose Your game : </h2>
       </div>
-      <div class="col-md-3"><button class="btn btn-warning" (click)="gioco='guess'">Guess</button></div>
-      <div class="col-md-3"><button class="btn btn-danger" (click)="gioco='highest'">Who has the highest</button></div>
-      <div class="col-md-3"><button class="btn btn-success" (click)="gioco='lowest'">Who has the lowest</button></div>
-      <div class="col-md-3"><button class="btn btn-primary" (click)="gioco='same'">Same</button></div>
+      <div class="col-md-3"><button class="btn btn-warning" (click)="gameStarted=false;gioco='guess'">Guess</button></div>
+      <div class="col-md-3"><button class="btn btn-danger" (click)="gameStarted=false;gioco='highest'">Who has the highest</button></div>
+      <div class="col-md-3"><button class="btn btn-success" (click)="gameStarted=false;gioco='lowest'">Who has the lowest</button></div>
+      <div class="col-md-3"><button class="btn btn-primary" (click)="gameStarted=false;gioco='same'">Same</button></div>
     </div>
     <div class="row" *ngIf="gioco=='guess'">
       <div class="col-md-12" *ngIf="gameStarted && gioco=='guess'"><h1>Time : {{minutes}} : {{seconds}}  Points : {{punteggio}}</h1></div>

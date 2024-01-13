@@ -19,7 +19,6 @@ export class AppComponent implements OnInit{
     this.router.navigate(['/ss'])
 let accessToken=localStorage.getItem('accessToken')!
 let refreshToken=localStorage.getItem('refreshToken')!
-console.log(accessToken,refreshToken)
   if(accessToken){
 this.authService.verifyToken(accessToken).subscribe((data:any)=>{
 this.toastr.success("utente verificato con successo")
@@ -33,6 +32,7 @@ this.router.navigate(['/gioco'])
 },err=>{
   this.authGuard.authenticateUser()
   this.userIsLoggedIn=false
+  this.router.navigate(['/home'])
 if(refreshToken){
   this.authService.verifyRefreshToken(refreshToken).subscribe((data:any)=>{
     if(data){
@@ -49,10 +49,13 @@ this.userIsLoggedIn=true
   },err=>{
     this.authGuard.authenticateUser()
     this.userIsLoggedIn=false
+    this.router.navigate(['/home'])
     this.toastr.error(err.error.message||"Utente non verificato")
   })
 }
 })
+  }else{
+    this.router.navigate(['/home'])
   }
   }
 logout(){
