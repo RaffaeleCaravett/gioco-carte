@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.router.navigate(['/home'])
+    this.router.navigate(['/ss'])
 let accessToken=localStorage.getItem('accessToken')!
 let refreshToken=localStorage.getItem('refreshToken')!
 console.log(accessToken,refreshToken)
