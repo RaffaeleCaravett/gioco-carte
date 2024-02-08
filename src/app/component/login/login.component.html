@@ -1,14 +1,14 @@
 <div class="container text-center py-5" style="min-height: 90vh;">
   <div class="row p-5">
-<div class="col-md-12 p-3" *ngIf="log">
+<div class="col-md-12 p-2" *ngIf="log">
   <h2 class="py-5">If you have already an account</h2>
   <div class="border rounded shadow bg-success py-5">
 <h2 class="py-4">Login</h2>
 <form [formGroup]="loginForm" (ngSubmit)="login()">
 <label for=""></label>
-<input type="text" formControlName="email" class="form-control w-50 m-auto">
+<input type="text" formControlName="email" class="form-control w-75 m-auto">
 <label for=""></label>
-<input type="password" formControlName="password" class="form-control w-50 m-auto">
+<input type="password" formControlName="password" class="form-control w-75 m-auto">
 <p class="text-danger fw-bold" *ngIf="error!=''">{{error}}</p>
 <button class="btn btn-warning my-3" type="button" (click)="login()">Login</button>
 </form>
@@ -16,21 +16,21 @@
   <button class="btn btn-secondary m-1" type="button"  (click)="log=false;error=''">Signup</button>
 </div>
 
-<div class="col-md-12 p-3" *ngIf="!log">
+<div class="col-md-12 p-2" *ngIf="!log">
   <h2 class="py-3">If you don't</h2>
   <div class="border rounded shadow bg-warning py-3">
 <h2 class="py-3">Register</h2>
 <form [formGroup]="registerForm" (ngSubmit)="login()">
 <label class="py-2">Email</label>
-<input type="text" formControlName="email" class="form-control w-50 m-auto">
+<input type="text" formControlName="email" class="form-control w-75 m-auto">
 <label class="py-2">Username</label>
-<input type="text" formControlName="username" class="form-control w-50 m-auto">
+<input type="text" formControlName="username" class="form-control w-75 m-auto">
 <label class="py-2">Nome Completo</label>
-<input type="text" formControlName="nome" class="form-control w-50 m-auto">
+<input type="text" formControlName="nome" class="form-control w-75 m-auto">
 <label class="py-2">Password</label>
-<input type="password" formControlName="password" class="form-control w-50 m-auto">
+<input type="password" formControlName="password" class="form-control w-75 m-auto">
 <label class="py-2">Conferma password</label>
-<input type="password" formControlName="ripetiPassword" class="form-control w-50 m-auto">
+<input type="password" formControlName="ripetiPassword" class="form-control w-75 m-auto">
 <p class="text-danger fw-bold" *ngIf="error!=''">{{error}}</p>
 <button class="btn btn-success my-3" type="button"  (click)="signup()">Register</button>
 </form>
