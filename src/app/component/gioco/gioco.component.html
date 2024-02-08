@@ -1,6 +1,8 @@
-<div class=" text-center p-5" style="min-height: 90vh;">
+<div class=" text-center py-5" style="min-height: 90vh;">
   <div class="row py-5">
-    <div class="py-5" *ngIf="!loggedIn">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="py-5 p-1" *ngIf="!loggedIn">
       <div class="p-1 border bg-light rounded shadow">
          <h1 class="py-5">You must be logged in to play.</h1>
     <button class="btn btn-primary my-3" [routerLink]="'/login'">Login</button>
@@ -9,7 +11,7 @@
     <p class="py-5 fs-4">😁😁😁</p>
       </div>
   </div>
-  <div class="p-5" *ngIf="loggedIn">
+  <div class="py-5 p-1" *ngIf="loggedIn">
     <div class="row">
       <div class="col-md-12">
         <h2>Chose Your game : </h2>
@@ -68,5 +70,7 @@
 </div>
     </div>
   </div>
+    </div>
+    <div class="col-md-2"></div>
   </div>
 </div>
